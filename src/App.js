@@ -1,10 +1,11 @@
 import React from 'react';
+import PostList from './features/posts/PostList';
 
 function App() {
   return (
-    <div className="App">
-      <h2>Blogs</h2>
-    </div>
+    <main className="App">
+      <PostList />
+    </main>
   );
 }
 
