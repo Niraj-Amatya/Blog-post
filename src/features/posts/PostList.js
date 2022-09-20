@@ -18,7 +18,7 @@ const PostList = () => {
 
   return (
     <section>
-      <h2>Posts</h2>
+      <h1>Posts</h1>
       {renderedPosts}
     </section>
   );
