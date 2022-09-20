@@ -9,6 +9,7 @@ const PostList = () => {
   const renderedPosts = posts.map((post) => (
     <article key={post.id}>
       <h3>{post.title}</h3>
+      {/* preview only first 100 characters substring is used */}
       <p>{post.content.substring(0, 100)}</p>
     </article>
   ));
