@@ -25,6 +25,19 @@ main {
 }
 
 
+section {
+    margin-top: 1em;
+    text-align: center;
+}
+
+article {
+    margin: 0.5em 0.5em 0.5em 0;
+    border: 1px solid whitesmoke;
+    border-radius: 10px;
+    padding: 1em;
+}
+
+
 
 h1 {
     font-size: 3.5rem;
