@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, nanoid } from '@reduxjs/toolkit';
 
 // dummy data
 const initialState = [
@@ -23,10 +23,12 @@ const postSlice = createSlice({
     postAdded(state, action) {
       const post = action.payload;
       const newPost = {
-        id: post.id,
+        id: nanoid(),
         title: post.title,
         content: post.content,
       };
+
+      console.log(newPost);
 
       state.push(newPost);
     },
