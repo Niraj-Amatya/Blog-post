@@ -9,6 +9,21 @@ const PostList = () => {
   //   selectAllPosts is a selector from the postSlice
   const posts = useSelector((state) => selectAllPosts(state));
 
+  // sort the order of the post, so that the recent post is always shown on the top.
+
+  // The localeCompare() method returns a number indicating whether a reference string comes before, or after, or is the same as the given string in sort order.
+  // Returns an integer indicating whether the referenceStr comes before, after or is equivalent to the compareString.
+
+  // Negative when the referenceStr occurs before compareString
+  // Positive when the referenceStr occurs after compareString
+  // Returns 0 if they are equivalent
+
+  // sort method provides a and b to compare the date
+  // slice() creates a shallow copy of the posts without mutating the actual posts array.
+
+  const orderedPost = posts.sort((a, b) => b.date.localeCompare(a.date));
+  console.log(orderedPost);
+
   //   returning posts from the posts state
   const renderedPosts = posts.map((post) => (
     <article key={post.id}>
