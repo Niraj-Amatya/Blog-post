@@ -26,6 +26,7 @@ const postSlice = createSlice({
         id: nanoid(),
         title: post.title,
         content: post.content,
+        userId: post.userId,
       };
 
       console.log(newPost);

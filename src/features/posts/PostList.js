@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { selectAllPosts } from './postSlice';
+import PostAuthor from './PostAuthor';
 
 const PostList = () => {
   // getting posts from the store
@@ -13,6 +14,9 @@ const PostList = () => {
       <h3>{post.title}</h3>
       {/* preview only first 100 characters substring is used */}
       <p>{post.content.substring(0, 100)}</p>
+      <p className="author">
+        <PostAuthor userId={post.userId} />
+      </p>
     </article>
   ));
 

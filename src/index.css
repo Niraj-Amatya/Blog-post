@@ -14,14 +14,12 @@ body{
     min-height: 100vh;
     padding: 0 10% 10%;
     font-size: 1.2rem;
-        border: white 2px solid
 }
 
 
 main {
     max-width: 500px;
     margin: auto;
-    border: red 2px solid
 }
 
 
@@ -54,7 +52,7 @@ p {
 }
 
 
-form {
+.form__container {
     display: flex;
     flex-direction: column;
 }
@@ -83,24 +81,40 @@ section h2 {
 }
 
 
-.save-post__button {
-    text-align: center;
-}
 
-.save-post__button button {
-    padding: 1rem 2rem;
+
+.save-post__button  {
+    padding: 0.5rem 2rem;
     font-size: 2rem;
     background-color: greenyellow;
     color: #333;
     border-radius: 5%;
+    text-align: center;
 }
 
-.save-post__button button:hover {
+
+.save-post__button:hover {
     color: greenyellow;
     background-color:#333; 
     border: 2px solid white;
-    cursor: pointer;
-
-
+    cursor: pointer
 
 }
+
+.disabled {
+    color: #999;
+    padding: 0.5rem 2rem;
+    font-size: 2rem;
+    border-radius: 5%;
+    text-align: center;
+}
+
+.author {
+    font-size: 1rem;
+    color: greenyellow
+}
+
+
+
+
+
