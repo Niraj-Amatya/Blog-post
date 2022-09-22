@@ -12,11 +12,9 @@ const AddPostForm = () => {
   const dispatch = useDispatch();
   const users = useSelector((state) => state.users);
 
-  console.log(users);
-
   // Boolean will be true if title, content or userId has value and false if they are empty/null/undefined.
   // this is used to deciede if form button shoudl be disabled or allowed to submit
-  const canSubmitButton = Boolean(title) && Boolean(content);
+  const canSubmitButton = Boolean(title) && Boolean(content) && Boolean(userId);
 
   // helperClass for styling of button when canSubmitButton is true or false.
   // this will be used in submit button

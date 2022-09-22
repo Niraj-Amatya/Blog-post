@@ -13,5 +13,4 @@ const usersSlice = createSlice({
   reducers: {},
 });
 
-export const { addNewAuthor } = usersSlice.actions;
 export default usersSlice.reducer;
