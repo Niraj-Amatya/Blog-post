@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { selectAllPosts } from './postSlice';
 import PostAuthor from './PostAuthor';
+import DatePost from './DatePost';
 
 const PostList = () => {
   // getting posts from the store
@@ -17,6 +18,9 @@ const PostList = () => {
       <p className="author">
         <PostAuthor userId={post.userId} />
       </p>
+
+      {/* pass the date of the post created from the post store */}
+      <DatePost timestamp={post.date} />
     </article>
   ));
 
