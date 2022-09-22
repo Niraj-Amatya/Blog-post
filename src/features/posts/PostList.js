@@ -7,7 +7,6 @@ const PostList = () => {
   // getting posts from the store
   //   selectAllPosts is a selector from the postSlice
   const posts = useSelector((state) => selectAllPosts(state));
-  console.log(posts);
 
   //   returning posts from the posts state
   const renderedPosts = posts.map((post) => (

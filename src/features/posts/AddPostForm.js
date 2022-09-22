@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { postAdded } from './postSlice';
+
 import { useSelector } from 'react-redux';
 
 const AddPostForm = () => {
@@ -11,9 +12,11 @@ const AddPostForm = () => {
   const dispatch = useDispatch();
   const users = useSelector((state) => state.users);
 
+  console.log(users);
+
   // Boolean will be true if title, content or userId has value and false if they are empty/null/undefined.
   // this is used to deciede if form button shoudl be disabled or allowed to submit
-  const canSubmitButton = Boolean(title) && Boolean(content) && Boolean(userId);
+  const canSubmitButton = Boolean(title) && Boolean(content);
 
   // helperClass for styling of button when canSubmitButton is true or false.
   // this will be used in submit button
@@ -68,6 +71,7 @@ const AddPostForm = () => {
             value={title}
             onChange={handleTitle}
           />
+
           <label htmlFor="postAuthor">Author:</label>
           <select
             name="postAuthor"
