@@ -11,6 +11,7 @@ const DatePost = ({ timestamp }) => {
     const parseDate = parseISO(timestamp);
 
     // formatDistanceToNow Return the distance between the given date and now in words.
+    // less then 5mins ago
     const datePostFromNow = formatDistanceToNow(parseDate);
     timePost = datePostFromNow;
   }
