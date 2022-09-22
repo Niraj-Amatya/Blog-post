@@ -21,11 +21,13 @@ const PostList = () => {
   // sort method provides a and b to compare the date
   // slice() creates a shallow copy of the posts without mutating the actual posts array.
 
-  const orderedPost = posts.sort((a, b) => b.date.localeCompare(a.date));
+  const orderedPost = posts
+    .slice()
+    .sort((a, b) => b.date.localeCompare(a.date));
   console.log(orderedPost);
 
   //   returning posts from the posts state
-  const renderedPosts = posts.map((post) => (
+  const renderedPosts = orderedPost.map((post) => (
     <article key={post.id}>
       <h3>{post.title}</h3>
       {/* preview only first 100 characters substring is used */}
