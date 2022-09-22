@@ -16,13 +16,29 @@ const initialState = [
     date: sub(new Date(), {
       hours: 2,
     }).toISOString(),
+    // reactions for the post
+    reactions: {
+      thumbsUp: 0,
+      wow: 0,
+      heart: 0,
+      rocket: 0,
+      coffee: 0,
+    },
   },
+
   {
     id: '2',
     title: 'Learn Redux Toolkit',
     content: 'After you learn React learn Redux Toolkit.',
     // current date from new Date is subtractet by 10 mins with sub function from date-fns
     date: sub(new Date(), { minutes: 5 }).toISOString(),
+    reactions: {
+      thumbsUp: 0,
+      wow: 0,
+      heart: 0,
+      rocket: 0,
+      coffee: 0,
+    },
   },
 ];
 
@@ -43,15 +59,30 @@ const postSlice = createSlice({
         // new date is created everytime the post is created.
         // this is updated to the post store and is available store wise
         date: new Date().toISOString(),
+        reactions: {
+          thumbsUp: 0,
+          wow: 0,
+          heart: 0,
+          rocket: 0,
+          coffee: 0,
+        },
       };
 
       state.push(newPost);
+    },
+    // reducer for reactions
+    reactionAdded(state, action) {
+      const { postId, reaction } = action.payload;
+      const existingPost = state.find((post) => post.id === postId);
+      if (existingPost) {
+        existingPost.reactions[reaction]++;
+      }
     },
   },
 });
 
 export const selectAllPosts = (state) => state.posts;
 
-export const { postAdded } = postSlice.actions;
+export const { postAdded, reactionAdded } = postSlice.actions;
 
 export default postSlice.reducer;
