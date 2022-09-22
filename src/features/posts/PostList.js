@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { selectAllPosts } from './postSlice';
 import PostAuthor from './PostAuthor';
 import DatePost from './DatePost';
+import ReactionButtons from './ReactionButtons';
 
 const PostList = () => {
   // getting posts from the store
@@ -24,7 +25,6 @@ const PostList = () => {
   const orderedPost = posts
     .slice()
     .sort((a, b) => b.date.localeCompare(a.date));
-  console.log(orderedPost);
 
   //   returning posts from the posts state
   const renderedPosts = orderedPost.map((post) => (
@@ -38,6 +38,7 @@ const PostList = () => {
 
       {/* pass the date of the post created from the post store */}
       <DatePost timestamp={post.date} />
+      <ReactionButtons post={post} />
     </article>
   ));
 
