@@ -2,6 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { reactionAdded } from '../posts/postSlice';
 
+// object of reactions with name and value(image). Name matches with the name provided in postSlice reactions.
 const reactionEmoji = {
   thumbsUp: '👍',
   wow: '😲',
@@ -17,7 +18,7 @@ const ReactionButtons = ({ post }) => {
   // name is the key and emoji is the object.
   // emojis are used as a button so as it is pressed it increases in value.
   // post is recieved from the PostList component
-  // postId and name/key is dispatched to the reducer
+  // postId and name/key is dispatched to the reducer on button click
   // displayed on the front is the picture of emoji and the value which is recieved from the post.reactions and passing the key as name and it always starts from zero.
 
   const reactionButton = Object.entries(reactionEmoji).map(([name, emoji]) => (

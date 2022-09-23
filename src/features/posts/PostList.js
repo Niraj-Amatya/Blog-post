@@ -37,8 +37,14 @@ const PostList = () => {
       </p>
 
       {/* pass the date of the post created from the post store */}
-      <DatePost timestamp={post.date} />
-      <ReactionButtons post={post} />
+      <div className="date-reactions">
+        <div className="date">
+          <DatePost timestamp={post.date} />
+        </div>
+        <div className="reactions">
+          <ReactionButtons post={post} />
+        </div>
+      </div>
     </article>
   ));
 
