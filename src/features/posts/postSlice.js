@@ -36,7 +36,7 @@ const postSlice = createSlice({
         },
       };
 
-      state.push(newPost);
+      state.posts.push(newPost);
     },
     // reducer for reactions
     // will recieve postId and reaction(specifice reaction name) as a dispatch action
@@ -46,7 +46,7 @@ const postSlice = createSlice({
     // else specific reaction that is dispatched by clicking that reaction button is added 1
     reactionAdded(state, action) {
       const { postId, reaction } = action.payload;
-      const existingPost = state.find((post) => post.id === postId);
+      const existingPost = state.posts.find((post) => post.id === postId);
       if (existingPost) {
         existingPost.reactions[reaction]++;
       }
