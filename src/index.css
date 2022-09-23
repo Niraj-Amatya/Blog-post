@@ -120,6 +120,14 @@ section h2 {
         border: none;
         color: whitesmoke;
         font-size: 1rem;
+        cursor: pointer;
+}
+
+
+.date-reactions {
+    display: flex;
+    justify-content: space-between;
+    
 }
 
 
