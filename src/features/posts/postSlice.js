@@ -1,14 +1,19 @@
 import { createSlice, nanoid } from '@reduxjs/toolkit';
-// for dates in the blog post
-// sub is to subtract desired date from the current date
-import { initialStateDummyData } from '../../dummyData/dummy';
 
-// dummy data
+// this is a dummy data, that we used to test the app.
+// import { initialStateDummyData } from '../../dummyData/dummy';//
+
+const initialState = {
+  posts: [],
+  status: 'idle', // "idle" | "loading" | "succeeded" | "failed" |
+  error: null,
+};
 
 // creating post slice
 const postSlice = createSlice({
   name: 'posts',
-  initialState: initialStateDummyData,
+  // initialState: initialStateDummyData,
+  initialState,
   reducers: {
     // add post reduce
     // recieve payload from the form
@@ -49,7 +54,7 @@ const postSlice = createSlice({
   },
 });
 
-export const selectAllPosts = (state) => state.posts;
+export const selectAllPosts = (state) => state.posts.posts;
 
 export const { postAdded, reactionAdded } = postSlice.actions;
 

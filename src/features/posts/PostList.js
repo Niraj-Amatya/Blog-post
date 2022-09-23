@@ -8,7 +8,7 @@ import ReactionButtons from './ReactionButtons';
 const PostList = () => {
   // getting posts from the store
   //   selectAllPosts is a selector from the postSlice
-  const posts = useSelector((state) => selectAllPosts(state));
+  const posts = useSelector(selectAllPosts);
 
   // sort the order of the post, so that the recent post is always shown on the top.
 
