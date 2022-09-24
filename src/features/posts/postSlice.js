@@ -1,4 +1,5 @@
 import { createSlice, nanoid, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
 
 // this is a dummy data, that we used to test the app.
 // import { initialStateDummyData } from '../../dummyData/dummy';//
@@ -11,6 +12,20 @@ const initialState = {
   status: 'idle', // "idle" | "loading" | "succeeded" | "failed" |
   error: null,
 };
+
+// creating fetchPosts function with createAsyncThunk that takes two argument:
+// 1. action.type which is a sring
+// 2. payload creator callback fucntion which returns promise with data or error
+// used async await inside the callback with try and catch
+// returns data from the base url or error on catch block
+export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
+  try {
+    const response = await axios.get(POSTS_URL);
+    return response.data;
+  } catch (error) {
+    return error.message;
+  }
+});
 
 // creating post slice
 const postSlice = createSlice({
