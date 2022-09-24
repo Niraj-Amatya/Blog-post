@@ -1,7 +1,10 @@
-import { createSlice, nanoid } from '@reduxjs/toolkit';
+import { createSlice, nanoid, createAsyncThunk } from '@reduxjs/toolkit';
 
 // this is a dummy data, that we used to test the app.
 // import { initialStateDummyData } from '../../dummyData/dummy';//
+
+// fake base url for posts
+const POSTS_URL = 'https://jsonplaceholder.typicode.com/posts';
 
 const initialState = {
   posts: [],
