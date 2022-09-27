@@ -16,8 +16,12 @@ const initialState = {
 // axios is used to fetch data from the API
 
 export const fetchPosts = createAsyncThunk('posts/fetchAllPosts', async () => {
-  const response = await axios.get(POSTS_URL);
-  return response.data;
+  try {
+    const response = await axios.get(POSTS_URL);
+    return response.data;
+  } catch (error) {
+    return error.message;
+  }
 });
 
 const postsSlice = createSlice({
