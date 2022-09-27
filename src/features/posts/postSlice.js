@@ -24,33 +24,49 @@ export const fetchPosts = createAsyncThunk('posts/fetchAllPosts', async () => {
   }
 });
 
+// add new post to api
+
+export const addNewPost = createAsyncThunk(
+  'posts/addNewPost',
+  async (newPost) => {
+    try {
+      // send newPost to fake API
+      // it will incldue the complete post object with userID
+      const response = await axios.post(POSTS_URL, newPost);
+      return response.data;
+    } catch (error) {
+      return error.message;
+    }
+  }
+);
+
 const postsSlice = createSlice({
   name: 'posts',
   initialState,
   reducers: {
-    postAdded: {
-      reducer(state, action) {
-        state.posts.push(action.payload);
-      },
-      prepare(title, content, userId) {
-        return {
-          payload: {
-            id: nanoid(),
-            title,
-            content,
-            date: new Date().toISOString(),
-            userId,
-            reactions: {
-              thumbsUp: 0,
-              wow: 0,
-              heart: 0,
-              rocket: 0,
-              coffee: 0,
-            },
-          },
-        };
-      },
-    },
+    // postAdded: {
+    //   reducer(state, action) {
+    //     state.posts.push(action.payload);
+    //   },
+    //   prepare(title, content, userId) {
+    //     return {
+    //       payload: {
+    //         id: nanoid(),
+    //         title,
+    //         content,
+    //         date: new Date().toISOString(),
+    //         userId,
+    //         reactions: {
+    //           thumbsUp: 0,
+    //           wow: 0,
+    //           heart: 0,
+    //           rocket: 0,
+    //           coffee: 0,
+    //         },
+    //       },
+    //     };
+    //   },
+    // },
     reactionAdded(state, action) {
       const { postId, reaction } = action.payload;
       const existingPost = state.posts.find((post) => post.id === postId);
@@ -90,6 +106,20 @@ const postsSlice = createSlice({
       .addCase(fetchPosts.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;
+      })
+      .addCase(addNewPost.fulfilled, (state, action) => {
+        const recentPost = action.payload;
+        recentPost.date = new Date().toISOString();
+        recentPost.userId = Number(recentPost.userId);
+        recentPost.reactions = {
+          thumbsUp: 0,
+          wow: 0,
+          heart: 0,
+          rocket: 0,
+          coffee: 0,
+        };
+
+        state.posts.push(recentPost);
       });
   },
 });
