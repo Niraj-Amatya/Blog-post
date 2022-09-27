@@ -1,88 +1,103 @@
-import { createSlice, nanoid } from '@reduxjs/toolkit';
-// for dates in the blog post
-// sub is to subtract desired date from the current date
+import { createSlice, nanoid, createAsyncThunk } from '@reduxjs/toolkit';
 import { sub } from 'date-fns';
+import axios from 'axios';
 
-// dummy data
-const initialState = [
-  {
-    id: '1',
-    title: 'Learn to code',
-    content: 'Learn to code everyday.',
-    // current date from new Date is subtractet by 2 hours with sub function from date-fns
-    // The toISOString() method returns a string in simplified extended ISO format (ISO 8601), which is always 24 or 27 characters long (YYYY-MM-DDTHH:mm:ss.sssZ or ±YYYYYY-MM-DDTHH:mm:ss.sssZ
-    // look for toISOString() in MDN
-    // new Date() gives new date
-    date: sub(new Date(), {
-      hours: 2,
-    }).toISOString(),
-    // reactions for the post
-    reactions: {
-      thumbsUp: 0,
-      wow: 0,
-      heart: 0,
-      rocket: 0,
-      coffee: 0,
-    },
-  },
+const POSTS_URL = 'https://jsonplaceholder.typicode.com/posts';
 
-  {
-    id: '2',
-    title: 'Learn Redux Toolkit',
-    content: 'After you learn React learn Redux Toolkit.',
-    // current date from new Date is subtractet by 10 mins with sub function from date-fns
-    date: sub(new Date(), { minutes: 5 }).toISOString(),
-    reactions: {
-      thumbsUp: 0,
-      wow: 0,
-      heart: 0,
-      rocket: 0,
-      coffee: 0,
-    },
-  },
-];
+const initialState = {
+  posts: [],
+  status: 'idle', //'idle' | 'loading' | 'succeeded' | 'failed'
+  error: null,
+};
 
-// creating post slice
-const postSlice = createSlice({
+// fetch post from the API using createAsyncThunk
+// createAsyncThunk will accept two arguments, a string that will be used as a prefix for the generated action types and callback function that will createa a payload and should return promises
+// this is generally written in async and await syntax
+// axios is used to fetch data from the API
+
+export const fetchPosts = createAsyncThunk('posts/fetchAllPosts', async () => {
+  try {
+    const response = await axios.get(POSTS_URL);
+    return response.data;
+  } catch (error) {
+    return error.message;
+  }
+});
+
+const postsSlice = createSlice({
   name: 'posts',
   initialState,
   reducers: {
-    // add post reduce
-    // recieve payload from the form
-    postAdded(state, action) {
-      const post = action.payload;
-      const newPost = {
-        id: nanoid(),
-        title: post.title,
-        content: post.content,
-        userId: post.userId,
-        // new date is created everytime the post is created.
-        // this is updated to the post store and is available store wise
-        date: new Date().toISOString(),
-        reactions: {
-          thumbsUp: 0,
-          wow: 0,
-          heart: 0,
-          rocket: 0,
-          coffee: 0,
-        },
-      };
-
-      state.push(newPost);
+    postAdded: {
+      reducer(state, action) {
+        state.posts.push(action.payload);
+      },
+      prepare(title, content, userId) {
+        return {
+          payload: {
+            id: nanoid(),
+            title,
+            content,
+            date: new Date().toISOString(),
+            userId,
+            reactions: {
+              thumbsUp: 0,
+              wow: 0,
+              heart: 0,
+              rocket: 0,
+              coffee: 0,
+            },
+          },
+        };
+      },
     },
-    // reducer for reactions
     reactionAdded(state, action) {
       const { postId, reaction } = action.payload;
-      const existingPost = state.find((post) => post.id === postId);
+      const existingPost = state.posts.find((post) => post.id === postId);
       if (existingPost) {
         existingPost.reactions[reaction]++;
       }
     },
   },
+  // extraReducers is a reducer that is called inisde the postSlice, however; outside the reducer, to listen to other action types
+  // it takes one argument: which is a builder
+  // builder is an object type.
+
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchPosts.pending, (state, action) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchPosts.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        let min = 1;
+
+        const allLoadedPosts = action.payload.map((post) => {
+          post.date = sub(new Date(), { minutes: min++ }).toISOString();
+          post.reactions = {
+            thumbsUp: 0,
+            wow: 0,
+            heart: 0,
+            rocket: 0,
+            coffee: 0,
+          };
+
+          return post;
+        });
+
+        state.posts = state.posts.concat(allLoadedPosts);
+      })
+      .addCase(fetchPosts.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      });
+  },
 });
 
-export const selectAllPosts = (state) => state.posts;
+export const selectAllPosts = (state) => state.posts.posts;
+export const getPostsStatus = (state) => state.posts.status;
+export const getPostsError = (state) => state.posts.error;
 
-export const { postAdded, reactionAdded } = postSlice.actions;
+export const { postAdded, reactionAdded } = postsSlice.actions;
 
-export default postSlice.reducer;
+export default postsSlice.reducer;

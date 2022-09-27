@@ -1,14 +1,27 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { selectAllPosts } from './postSlice';
-import PostAuthor from './PostAuthor';
-import DatePost from './DatePost';
-import ReactionButtons from './ReactionButtons';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import PostExcerpt from './PostExcerpt';
+import { fetchPosts } from './postSlice';
+import { selectAllPosts, getPostsError, getPostsStatus } from './postSlice';
 
 const PostList = () => {
+  const dispatch = useDispatch();
   // getting posts from the store
   //   selectAllPosts is a selector from the postSlice
-  const posts = useSelector((state) => selectAllPosts(state));
+  // getting posts, status and error with useSelector and helper functions
+  const posts = useSelector(selectAllPosts);
+  const postsStatus = useSelector(getPostsStatus);
+  const error = useSelector(getPostsError);
+  console.log(posts);
+
+  // useEffect to dispatch fetchPosts from the postSlice
+  // useEffect is called if postStatus is "idle"
+
+  useEffect(() => {
+    if (postsStatus === 'idle') {
+      dispatch(fetchPosts());
+    }
+  }, [dispatch, postsStatus]);
 
   // sort the order of the post, so that the recent post is always shown on the top.
 
@@ -22,38 +35,21 @@ const PostList = () => {
   // sort method provides a and b to compare the date
   // slice() creates a shallow copy of the posts without mutating the actual posts array.
 
-  const orderedPost = posts
-    .slice()
-    .sort((a, b) => b.date.localeCompare(a.date));
+  let content;
+  if (postsStatus === 'loading') {
+    content = <p>Loading...</p>;
+  } else if (postsStatus === 'succeeded') {
+    const orderedList = posts
+      .slice()
+      .sort((a, b) => b.date.localeCompare(a.date));
+    content = orderedList.map((post) => (
+      <PostExcerpt key={post.id} post={post} />
+    ));
+  } else if (postsStatus === 'failed') {
+    content = <p>{error}</p>;
+  }
 
-  //   returning posts from the posts state
-  const renderedPosts = orderedPost.map((post) => (
-    <article key={post.id}>
-      <h3>{post.title}</h3>
-      {/* preview only first 100 characters substring is used */}
-      <p>{post.content.substring(0, 100)}</p>
-      <p className="author">
-        <PostAuthor userId={post.userId} />
-      </p>
-
-      {/* pass the date of the post created from the post store */}
-      <div className="date-reactions">
-        <div className="date">
-          <DatePost timestamp={post.date} />
-        </div>
-        <div className="reactions">
-          <ReactionButtons post={post} />
-        </div>
-      </div>
-    </article>
-  ));
-
-  return (
-    <section>
-      <h1>Posts</h1>
-      {renderedPosts}
-    </section>
-  );
+  return <section className="post-lists">{content}</section>;
 };
 
 export default PostList;

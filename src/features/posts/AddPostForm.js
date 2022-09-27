@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { selectAllUsers } from '../users/usersSlice';
 import { useDispatch } from 'react-redux';
 import { postAdded } from './postSlice';
 
@@ -10,7 +11,7 @@ const AddPostForm = () => {
   const [userId, setUserId] = useState('');
 
   const dispatch = useDispatch();
-  const users = useSelector((state) => state.users);
+  const users = useSelector(selectAllUsers);
 
   // Boolean will be true if title, content or userId has value and false if they are empty/null/undefined.
   // this is used to deciede if form button shoudl be disabled or allowed to submit
