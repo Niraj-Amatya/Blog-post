@@ -12,7 +12,6 @@ const PostList = () => {
   const posts = useSelector(selectAllPosts);
   const postsStatus = useSelector(getPostsStatus);
   const error = useSelector(getPostsError);
-  console.log(posts);
 
   // useEffect to dispatch fetchPosts from the postSlice
   // useEffect is called if postStatus is "idle"
