@@ -1,0 +1,55 @@
+header {
+    padding: 1rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(12, 145, 12);
+    color: whitesmoke;
+    position: sticky;
+    top: 0;
+    font-size: 2rem;
+}
+
+nav {
+    display: flex;
+    justify-content: flex-end;
+    position: relative;
+}
+
+nav ul {
+    list-style-type: none;
+}
+
+nav ul li {
+    display: inline-block;
+    margin-right: 1rem;
+}
+
+ 
+nav a:visited {
+    color: #fff;
+    text-decoration: none;
+}
+
+nav a:hover {
+    color: antiquewhite;
+}
+
+.active-link{
+    text-decoration: none;
+    border-bottom: 6px solid rgb(210, 210, 40);
+}
+
+
+.link {
+    text-decoration: none;
+
+}
+
+.logo {
+    color: white;
+    text-decoration: none;
+    font-size: inherit;
+
+}
+
