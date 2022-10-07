@@ -5,6 +5,8 @@ import PostAuthor from './PostAuthor';
 import DatePost from './DatePost';
 import ReactionButtons from './ReactionButtons';
 import { useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import './singlePagePost.css';
 
 const SinglePagePost = () => {
   // getting postId from useParams()
@@ -12,6 +14,7 @@ const SinglePagePost = () => {
   // getting single post using useSelector
   // postId is passed to selectPostById
   //   postId is received from useParams() from react-router-dom
+
   const post = useSelector((state) => selectPostByID(state, Number(postId)));
 
   //   If no post is found, will return the message
@@ -25,24 +28,31 @@ const SinglePagePost = () => {
 
   //   Else will return the post and details
   return (
-    <article>
-      <h2>{post.title}</h2>
-      {/* preview only first 100 characters substring is used */}
-      <p>{post.body}</p>
-      <p className="author">
-        <PostAuthor userId={post.userId} />
-      </p>
+    <>
+      <article className="single-page-post">
+        <h2>{post.title}</h2>
+        {/* preview only first 100 characters substring is used */}
+        <p>{post.body}</p>
+        <p className="author">
+          <PostAuthor userId={post.userId} />
+        </p>
 
-      {/* pass the date of the post created from the post store */}
-      <div className="date-reactions">
-        <div className="date">
-          <DatePost timestamp={post.date} />
+        {/* pass the date of the post created from the post store */}
+        <div className="date-reactions">
+          <div className="date">
+            <DatePost timestamp={post.date} />
+          </div>
+          <div className="reactions">
+            <ReactionButtons post={post} />
+          </div>
         </div>
-        <div className="reactions">
-          <ReactionButtons post={post} />
-        </div>
-      </div>
-    </article>
+      </article>
+      <h4 className="return">
+        <Link className="link-return" to="/">
+          Return Home
+        </Link>
+      </h4>
+    </>
   );
 };
 
