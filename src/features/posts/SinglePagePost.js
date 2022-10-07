@@ -12,7 +12,7 @@ const SinglePagePost = () => {
   // getting single post using useSelector
   // postId is passed to selectPostById
   //   postId is received from useParams() from react-router-dom
-  const post = useSelector(selectPostByID(postId));
+  const post = useSelector((state) => selectPostByID(state, Number(postId)));
 
   //   If no post is found, will return the message
   if (!post) {
