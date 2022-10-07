@@ -3,6 +3,7 @@ import React from 'react';
 import PostAuthor from './PostAuthor';
 import DatePost from './DatePost';
 import ReactionButtons from './ReactionButtons';
+import { Link } from 'react-router-dom';
 
 const PostExcerpt = ({ post }) => {
   return (
@@ -12,6 +13,9 @@ const PostExcerpt = ({ post }) => {
       <p>{post.body.substring(0, 100)}</p>
       <p className="author">
         <PostAuthor userId={post.userId} />
+      </p>
+      <p>
+        <Link to={`post/${post.id}`}>More Info</Link>
       </p>
 
       {/* pass the date of the post created from the post store */}
