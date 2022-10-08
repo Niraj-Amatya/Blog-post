@@ -4,11 +4,14 @@ import { useDispatch } from 'react-redux';
 import { addNewPost } from './postSlice';
 
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const AddPostForm = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [userId, setUserId] = useState('');
+
+  const navigate = useNavigate();
   // checking request status which is set to idle.
   const [addRequestStatus, setAddRequestStatus] = useState('idle');
   // this state "submitted" is used to display message after form is submitted
@@ -61,6 +64,7 @@ const AddPostForm = () => {
         setTitle('');
         setUserId('');
         setSubmitted(true);
+        navigate('/');
       }
     } catch (error) {
       return error.message;

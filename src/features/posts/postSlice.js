@@ -1,4 +1,4 @@
-import { createSlice, nanoid, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { sub } from 'date-fns';
 import axios from 'axios';
 
@@ -33,6 +33,7 @@ export const addNewPost = createAsyncThunk(
       // send newPost to fake API
       // it will incldue the complete post object with userID
       const response = await axios.post(POSTS_URL, newPost);
+
       return response.data;
     } catch (error) {
       return error.message;
@@ -127,6 +128,10 @@ const postsSlice = createSlice({
 export const selectAllPosts = (state) => state.posts.posts;
 export const getPostsStatus = (state) => state.posts.status;
 export const getPostsError = (state) => state.posts.error;
+
+// find the post from the store whose id matches the postId sent from the SinglePagePost.
+export const selectPostByID = (state, postId) =>
+  state.posts.posts.find((post) => post.id === postId);
 
 export const { postAdded, reactionAdded } = postsSlice.actions;
 
