@@ -33,6 +33,7 @@ export const addNewPost = createAsyncThunk(
       // send newPost to fake API
       // it will incldue the complete post object with userID
       const response = await axios.post(POSTS_URL, newPost);
+
       return response.data;
     } catch (error) {
       return error.message;
