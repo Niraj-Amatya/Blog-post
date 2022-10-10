@@ -47,10 +47,14 @@ const SinglePagePost = () => {
           </div>
         </div>
       </article>
-      <h4 className="return">
-        <Link className="link-return" to="/">
+      <h4 className="singlePage__Links">
+        <Link to={`/post/edit/${post.id}`} className="singlePage__Link">
+          Edit Post
+        </Link>
+        <Link className="singlePage__Link" to="/">
           Return Home
         </Link>
+        {/* link to edit post page */}
       </h4>
     </>
   );
