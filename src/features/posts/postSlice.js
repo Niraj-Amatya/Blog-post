@@ -41,6 +41,24 @@ export const addNewPost = createAsyncThunk(
   }
 );
 
+// edit post
+export const editPost = createAsyncThunk(
+  'post/editPost',
+  async (initialPost) => {
+    const { id } = initialPost;
+    try {
+      const response = await axios.put(
+        `https://jsonplaceholder.typicode.com/posts/${id}`,
+        initialPost
+      );
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      return error.message;
+    }
+  }
+);
+
 const postsSlice = createSlice({
   name: 'posts',
   initialState,
@@ -121,6 +139,16 @@ const postsSlice = createSlice({
         };
 
         state.posts.push(recentPost);
+      })
+      .addCase(editPost.fulfilled, (state, action) => {
+        console.log(typeof action.payload.userID);
+        const updatePost = action.payload;
+        updatePost.date = new Date().toISOString();
+        const posts = state.posts.filter(
+          (post) => post.id !== action.payload.id
+        );
+        console.log(updatePost);
+        state.posts = [...posts, updatePost];
       });
   },
 });
