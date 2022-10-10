@@ -64,15 +64,17 @@ const AddPostForm = () => {
         setTitle('');
         setUserId('');
         setSubmitted(true);
-        navigate('/');
       }
     } catch (error) {
       return error.message;
-      // setTimeout is used to change the submitted to false again so that message of form submitted will disappear in the UI after setout time.
+      // setTimeout is used to change the submitted to false again so that message of form submitted will disappear in the UI for setout time.
+      // also routes the page to home page
     } finally {
       setAddRequestStatus('idle');
+
       setTimeout(() => {
         setSubmitted(false);
+        navigate('/');
       }, 1000);
     }
   };
