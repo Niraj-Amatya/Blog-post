@@ -4,13 +4,15 @@
 }
 
 
-.return {
+.singlePage__Links {
     font-size: 1.4rem;
-            text-align: end;
-            margin-right: 20px;
+    display: flex;
+    justify-content: space-between;
+            /* text-align: end;
+            margin-right: 20px; */
 }
 
-.link-return {
+.singlePage__Link{
         color: white;
         text-decoration: none;
 }
