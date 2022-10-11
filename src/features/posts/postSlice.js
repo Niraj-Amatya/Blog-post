@@ -199,6 +199,10 @@ export const getPostsError = (state) => state.posts.error;
 export const selectPostByID = (state, postId) =>
   state.posts.posts.find((post) => post.id === postId);
 
+export const selectPostByUser = (state, userId) => {
+  state.posts.posts.find((post) => post.userId === userId);
+};
+
 export const { postAdded, reactionAdded } = postsSlice.actions;
 
 export default postsSlice.reducer;
