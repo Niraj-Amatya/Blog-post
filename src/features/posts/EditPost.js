@@ -84,7 +84,7 @@ const EditPost = () => {
       setRequestStatus('idle');
       setTimeout(() => {
         setSubmitted(false);
-        navigate('/');
+        navigate(`/post/${id}`);
       }, 1000);
     }
   };
