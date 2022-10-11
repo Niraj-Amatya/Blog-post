@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import PostExcerpt from './PostExcerpt';
-import { fetchPosts } from './postSlice';
+// import { fetchPosts } from './postSlice';
 import { selectAllPosts, getPostsError, getPostsStatus } from './postSlice';
 
 const PostList = () => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   // getting posts from the store
   //   selectAllPosts is a selector from the postSlice
   // getting posts, status and error with useSelector and helper functions
@@ -16,11 +16,12 @@ const PostList = () => {
   // useEffect to dispatch fetchPosts from the postSlice
   // useEffect is called if postStatus is "idle"
 
-  useEffect(() => {
-    if (postsStatus === 'idle') {
-      dispatch(fetchPosts());
-    }
-  }, [dispatch, postsStatus]);
+  // useEffect(() => {
+  //   console.log('hello');
+  //   if (postsStatus === 'idle') {
+  //     dispatch(fetchPosts());
+  //   }
+  // }, []);
 
   // sort the order of the post, so that the recent post is always shown on the top.
 
