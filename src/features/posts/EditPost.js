@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectPostByID, editPost } from './postSlice';
+import { selectPostByID, editPost, deletePost } from './postSlice';
 import { selectAllUsers } from '../users/usersSlice';
 import { useNavigate } from 'react-router-dom';
 
@@ -89,6 +89,23 @@ const EditPost = () => {
     }
   };
 
+  // delete post handler
+  const deleteHandler = (event) => {
+    event.preventDefault();
+    setRequestStatus('pending');
+    try {
+      dispatch(deletePost(id)).unwrap();
+      setTitleDetail('');
+      setContent('');
+      setUserID('');
+      navigate('/');
+    } catch (error) {
+      return error.message;
+    } finally {
+      setRequestStatus('idle');
+    }
+  };
+
   //   to show all the user options in the select option
   const userOptions = users.map((user) => (
     <option key={user.id} value={user.id}>
@@ -133,8 +150,13 @@ const EditPost = () => {
             value={content}
             onChange={contentHandler}
           />
+        </div>
+        <div className="button-style">
           <button disabled={!canSubmit} className={helperClass}>
-            Submit
+            Submit Post
+          </button>
+          <button className="delete-post__button" onClick={deleteHandler}>
+            Delete Post
           </button>
         </div>
       </form>
