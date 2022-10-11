@@ -5,6 +5,8 @@ import { Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
 import SinglePagePost from './features/posts/SinglePagePost';
 import EditPost from './features/posts/EditPost';
+import UsersList from '../src/features/users/UsersList';
+import User from './features/users/User';
 
 function App() {
   return (
@@ -17,6 +19,10 @@ function App() {
             <Route index element={<AddPostForm />} />
             <Route path=":postId" element={<SinglePagePost />} />
             <Route path="edit/:postId" element={<EditPost />} />
+          </Route>
+          <Route path="/user">
+            <Route index element={<UsersList />} />
+            <Route path=":userId" element={<User />} />
           </Route>
         </Route>
       </Routes>

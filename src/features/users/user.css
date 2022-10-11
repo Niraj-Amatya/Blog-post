@@ -1,0 +1,34 @@
+.author-posts-link {
+    color: white;
+    text-decoration: none;
+    text-transform: uppercase;
+
+}
+
+.author-posts {
+    list-style: none;
+    font-size: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 2rem;
+    padding: 1rem;
+    border: 2px solid greenyellow;
+    
+
+}
+
+.author-heading {
+    font-size: 3rem;
+    text-align: center;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    text-decoration: underline;
+}
+
+
+.author-blogs{
+    text-align: center;
+    font-size: 2rem;
+    color: greenyellow;
+}

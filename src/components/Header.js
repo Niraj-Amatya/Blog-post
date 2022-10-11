@@ -28,6 +28,12 @@ const Header = () => {
               Post
             </NavLink>
           </li>
+          <NavLink
+            to="/user"
+            className={({ isActive }) => (isActive ? 'active-link' : 'link')}
+          >
+            Authors
+          </NavLink>
         </ul>
       </nav>
     </header>
