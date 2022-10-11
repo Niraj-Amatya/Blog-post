@@ -50,6 +50,8 @@ p {
     margin: 0.5em 0;
 }
 
+ 
+
 
 .form__container {
     display: flex;
@@ -141,6 +143,7 @@ section h2 {
     justify-content: space-between;
     
 }
+
 
 @media screen and (min-width:900px){
     main {
