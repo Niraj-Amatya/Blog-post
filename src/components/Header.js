@@ -32,7 +32,7 @@ const Header = () => {
             to="/user"
             className={({ isActive }) => (isActive ? 'active-link' : 'link')}
           >
-            User
+            Authors
           </NavLink>
         </ul>
       </nav>
