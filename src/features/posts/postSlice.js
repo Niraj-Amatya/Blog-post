@@ -43,7 +43,7 @@ export const addNewPost = createAsyncThunk(
 
 // edit post
 export const editPost = createAsyncThunk(
-  'post/editPost',
+  'posts/editPost',
   async (initialPost) => {
     const { id } = initialPost;
     try {
@@ -58,6 +58,22 @@ export const editPost = createAsyncThunk(
     }
   }
 );
+
+// Delete Post
+export const deletePost = createAsyncThunk('posts/deletePost', async (id) => {
+  console.log(typeof id);
+  try {
+    const response = await axios.delete(`${POSTS_URL}/${id}`);
+    // return id to extra reducer if status is 200
+    if (response.status === 200) {
+      return id;
+    }
+    // will return the statusText
+    return response.statusText;
+  } catch (error) {
+    return error.message;
+  }
+});
 
 const postsSlice = createSlice({
   name: 'posts',
@@ -107,6 +123,19 @@ const postsSlice = createSlice({
         state.status = 'succeeded';
         let min = 1;
 
+        // const uniqueUsers = [];
+
+        // const unique = action.payload.filter((post) => {
+        //   const isDupliacte = uniqueUsers.includes(post.userId);
+        //   if (!isDupliacte) {
+        //     uniqueUsers.push(post);
+        //     return true;
+        //   }
+        //   return false;
+        // });
+
+        // console.log(uniqueUsers);
+
         const allLoadedPosts = action.payload.map((post) => {
           post.date = sub(new Date(), { minutes: min++ }).toISOString();
           post.reactions = {
@@ -149,6 +178,15 @@ const postsSlice = createSlice({
         );
         console.log(updatePost);
         state.posts = [...posts, updatePost];
+      })
+      .addCase(deletePost.fulfilled, (state, action) => {
+        console.log(`addCase: ${action.payload}`);
+        const id = action.payload;
+        console.log(typeof id);
+        // removing the post from the posts
+        const posts = state.posts.filter((post) => post.id !== id);
+
+        state.posts = posts;
       });
   },
 });
