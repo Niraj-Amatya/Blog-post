@@ -7,3 +7,9 @@
     color: white;
     font-size: 1.2rem;
 }
+
+.post-heading{
+    text-transform: capitalize;
+    text-decoration: underline;
+    color: bisque;
+}
